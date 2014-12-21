@@ -1,16 +1,16 @@
+%{?_javapackages_macros:%_javapackages_macros}
 # Conditionals to help breaking vorbis-java-tika <-> tika dependency cycle
-%if 0%{?fedora}
 %bcond_with tika
-%endif
 Name:          vorbis-java
 Version:       0.6
-Release:       1%{?dist}
+Release:       1.1
 Summary:       Ogg and Vorbis toolkit for Java
+Group:		Development/Java
 License:       ASL 2.0
 URL:           https://github.com/Gagravarr/VorbisJava
 Source0:       https://github.com/Gagravarr/VorbisJava/archive/%{name}-%{version}.tar.gz
 
-%if %{without tika}
+%if %{with tika}
 BuildRequires: mvn(org.apache.tika:tika-core)
 %endif
 # test deps
@@ -25,7 +25,7 @@ BuildArch:     noarch
 This library is a pure Java, for working with Ogg and
 Vorbis files.
 
-%if %{without tika}
+%if %{with tika}
 %package tika
 Summary:       VorbisJava Apache Tika plugin
 
@@ -51,7 +51,7 @@ This package contains javadoc for %{name}.
 find . -name "*.class" -delete
 find . -name "*.jar" -delete
 
-%if %{with tika}
+%if %{without tika}
 %pom_disable_module tika
 %endif
 
@@ -77,7 +77,7 @@ find . -name "*.jar" -delete
 %dir %{_javadir}/%{name}
 %doc CHANGES.txt LICENSE.txt NOTICE.txt README.txt TODO.txt
 
-%if %{without tika}
+%if %{with tika}
 %files tika -f .mfiles-%{name}-tika
 %doc LICENSE.txt NOTICE.txt
 %endif
