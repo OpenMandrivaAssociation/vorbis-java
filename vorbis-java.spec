@@ -3,7 +3,7 @@
 %bcond_with tika
 Name:          vorbis-java
 Version:       0.6
-Release:       1.2
+Release:       1.3
 Summary:       Ogg and Vorbis toolkit for Java
 Group:		Development/Java
 License:       ASL 2.0
